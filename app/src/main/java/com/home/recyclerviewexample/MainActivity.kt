@@ -17,18 +17,35 @@ class MainActivity : AppCompatActivity() {
             "温故而知新，可以为师矣。",
             "己所不欲，勿施于人。"
     )
+    val list = arrayListOf<SentenceBean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initData()
         initView()
     }
 
+    private fun initData() {
+        for (i in items) {
+            val sen = SentenceBean(i, 0)
+            list.add(sen)
+        }
+    }
+
     private fun initView() {
-        val adapter = MainAdapter(R.layout.item_main, items)
+        val adapter = MainAdapter(R.layout.item_main, list)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mRecyclerView.adapter = adapter
 
-        adapter.setOnItemClickListener { adapter, view, position -> view.mText.setTextColor(resources.getColor(R.color.red)) }
+        adapter.setOnItemClickListener { adapter, view, position ->
+            if (list[position].type == 0) {
+                view.mText.setTextColor(resources.getColor(R.color.red))
+                list[position].type = 1
+            } else {
+                view.mText.setTextColor(resources.getColor(R.color.black))
+                list[position].type = 0
+            }
+        }
     }
 }
