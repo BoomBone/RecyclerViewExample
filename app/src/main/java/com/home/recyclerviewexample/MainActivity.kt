@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_main.view.*
 
 class MainActivity : AppCompatActivity() {
+    var count = 0
     val items = listOf(
             "子曰：苟志于仁矣，无恶也。",
             "君子和而不同，小人同而不和。",
@@ -42,9 +43,13 @@ class MainActivity : AppCompatActivity() {
             if (list[position].type == 0) {
                 view.mText.setTextColor(resources.getColor(R.color.red))
                 list[position].type = 1
+                count++
+                mTextNum.text = count.toString()
             } else {
                 view.mText.setTextColor(resources.getColor(R.color.black))
                 list[position].type = 0
+                count--
+                mTextNum.text = count.toString()
             }
         }
     }
