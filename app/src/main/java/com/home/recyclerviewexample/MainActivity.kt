@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_main.view.*
 
 class MainActivity : AppCompatActivity() {
     val items = listOf(
@@ -24,8 +25,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        val adapter = MainAdapter(R.layout.item_main, items)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mRecyclerView.adapter = MainAdapter(R.layout.item_main, items)
-    }
+        mRecyclerView.adapter = adapter
 
+        adapter.setOnItemClickListener { adapter, view, position -> view.mText.setTextColor(resources.getColor(R.color.red)) }
+    }
 }
